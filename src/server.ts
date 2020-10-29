@@ -3,9 +3,6 @@ import { applyMiddleware, applyRoutes } from "./utils";
 import routes from "./services";
 import middleware from "./middleware";
 import errorHandlers from "./middleware/errorHandlers";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 process.on("uncaughtException", e => {
     console.log(e);
@@ -17,7 +14,7 @@ process.on("unhandledRejection", e => {
 });
 
 const server = express();
-const { PORT = 3000 } = process.env;
+const { PORT = 5000 } = process.env;
 
 applyMiddleware(middleware, server);
 applyRoutes(routes, server);
