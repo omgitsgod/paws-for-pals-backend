@@ -10,7 +10,7 @@ export default [
     },
   },
   {
-    path: "/dogs",
+    path: "/Dog",
     method: "get",
     handler: async ({ query }: Request, res: Response) => {
         let result;
