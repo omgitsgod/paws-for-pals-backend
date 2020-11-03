@@ -17,7 +17,8 @@ export const getDogs = async (q: qeuries) => {
   const response = await client.animal.search({
     type: 'Dog',
     location: location,
-    distance: '10'
+    distance: '10',
+    limit: '10',
   });
   return response.data;
 };
