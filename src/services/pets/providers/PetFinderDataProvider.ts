@@ -29,6 +29,7 @@ export const getCats = async (q: qeuries) => {
     type: 'Cat',
     location: location,
     distance: '10',
+    limit: '10',
   });
   return response.data;
 };
