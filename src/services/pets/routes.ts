@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getDogsByLocation } from "./PetsController";
+import { getDogsByLocation, getCatsByLocation } from "./PetsController";
 
 export default [
   {
@@ -26,7 +26,7 @@ export default [
     handler: async ({ query }: Request, res: Response) => {
       let result;
       if (query.location) {
-        result = await getDogsByLocation(query.location.toString());
+        result = await getCatsByLocation(query.location.toString());
       }
       res.status(200).send(result);
     },
