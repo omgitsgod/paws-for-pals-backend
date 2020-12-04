@@ -15,7 +15,9 @@ export default [
     handler: async ({ query }: Request, res: Response) => {
       let result;
       if (query.location) {
-        result = await getDogsByLocation(query.location.toString());
+        const location = query.location.toString();
+        const distance = query.distance?.toString() || '10';
+        result = await getDogsByLocation(location, distance);
       }
       res.status(200).send(result);
     },
@@ -26,7 +28,9 @@ export default [
     handler: async ({ query }: Request, res: Response) => {
       let result;
       if (query.location) {
-        result = await getCatsByLocation(query.location.toString());
+        const location = query.location.toString();
+        const distance = query.distance?.toString() || '10';
+        result = await getCatsByLocation(location, distance);
       }
       res.status(200).send(result);
     },
