@@ -7,7 +7,7 @@ import path from "path";
 export const handleCors = (router: Router) => router.use(cors({ credentials: true, origin: true }));
 
 export const handleBodyRequestParsing = (router: Router) => {
-  router.use(urlencoded());
+  router.use(urlencoded({ extended: true }));
   router.use(json());
 };
 
