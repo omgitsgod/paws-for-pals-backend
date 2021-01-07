@@ -1,20 +1,16 @@
-import { getDogs, getCats } from "./providers/PetFinderDataProvider";
+import { getDogs, getCats } from './providers/PetFinderDataProvider';
 
-export const getDogsByLocation = async (location: string, distance: string) => {
-    if (location.length < 5) {
-        return {
-            animals: []
-        }
-    }
-
-    return getDogs({ location, distance })
+export const getDogsWithOptions = async (
+  location: string | undefined,
+  distance: string | undefined,
+  age: string | undefined
+) => {
+  return getDogs({ location, distance, age });
 };
-export const getCatsByLocation = async (location: string, distance: string) => {
-  if (location.length < 5) {
-    return {
-      animals: [],
-    };
-  }
-
-  return getCats({ location, distance });
+export const getCatsWithOptions = async (
+  location: string | undefined,
+  distance: string | undefined,
+  age: string | undefined
+) => {
+  return getCats({ location, distance, age });
 };
