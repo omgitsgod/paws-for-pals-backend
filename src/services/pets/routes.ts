@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { getDogsByLocation, getCatsByLocation } from "./PetsController";
+import { Request, Response } from 'express';
+import { getDogsWithOptions, getCatsWithOptions } from './PetsController';
 
 export default [
   {
@@ -14,11 +14,10 @@ export default [
     method: 'get',
     handler: async ({ query }: Request, res: Response) => {
       let result;
-      if (query.location) {
-        const location = query.location.toString();
-        const distance = query.distance?.toString() || '10';
-        result = await getDogsByLocation(location, distance);
-      }
+      const location = query.location?.toString();
+      const distance = query.distance?.toString();
+      const age = query.age?.toString();
+      result = await getDogsWithOptions(location, distance, age);
       res.status(200).send(result);
     },
   },
@@ -27,11 +26,11 @@ export default [
     method: 'get',
     handler: async ({ query }: Request, res: Response) => {
       let result;
-      if (query.location) {
-        const location = query.location.toString();
-        const distance = query.distance?.toString() || '10';
-        result = await getCatsByLocation(location, distance);
-      }
+      const location = query.location?.toString();
+      const distance = query.distance?.toString();
+      const age = query.age?.toString();
+      const options = { location, distance };
+      result = await getCatsWithOptions(location, distance, age);
       res.status(200).send(result);
     },
   },
