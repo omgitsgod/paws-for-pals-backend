@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { Client } from '@petfinder/petfinder-js';
 import dotenv from 'dotenv';
 
@@ -7,7 +6,7 @@ dotenv.config();
 const apiKey: string = process.env.PETFINDER_KEY!;
 const secret: string = process.env.PETFINDER_SECRET!;
 
-const client = new Client({ apiKey, secret });
+let client = new Client({ apiKey, secret });
 type qeuries = {
   location: string | undefined;
   distance: string | undefined;
@@ -16,24 +15,50 @@ type qeuries = {
 
 export const getDogs = async (q: qeuries) => {
   const { location, distance, age } = q;
-  const response = await client.animal.search({
-    type: 'Dog',
-    age,
-    location,
-    distance,
-    limit: '100',
-  });
+  let response;
+  try {
+    response = await client.animal.search({
+      type: 'Dog',
+      age,
+      location,
+      distance,
+      limit: '100',
+    });
+  } catch {
+    client = new Client({ apiKey, secret });
+  } finally {
+    response = await client.animal.search({
+      type: 'Dog',
+      age,
+      location,
+      distance,
+      limit: '100',
+    });
+  }
   return response.data;
 };
 
 export const getCats = async (q: qeuries) => {
   const { location, distance, age } = q;
-  const response = await client.animal.search({
-    type: 'Cat',
-    age,
-    location,
-    distance,
-    limit: '100',
-  });
+  let response;
+  try {
+    response = await client.animal.search({
+      type: 'Dog',
+      age,
+      location,
+      distance,
+      limit: '100',
+    });
+  } catch {
+    client = new Client({ apiKey, secret });
+  } finally {
+    response = await client.animal.search({
+      type: 'Dog',
+      age,
+      location,
+      distance,
+      limit: '100',
+    });
+  }
   return response.data;
 };
