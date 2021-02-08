@@ -13,12 +13,12 @@ type qeuries = {
   age: string | undefined;
 };
 
-export const getDogs = async (q: qeuries) => {
+export const getPets = async (type: string, q: qeuries) => {
   const { location, distance, age } = q;
   let response;
   try {
     response = await client.animal.search({
-      type: 'Dog',
+      type: type,
       age,
       location,
       distance,
@@ -28,32 +28,7 @@ export const getDogs = async (q: qeuries) => {
     client = new Client({ apiKey, secret });
   } finally {
     response = await client.animal.search({
-      type: 'Dog',
-      age,
-      location,
-      distance,
-      limit: '100',
-    });
-  }
-  return response.data;
-};
-
-export const getCats = async (q: qeuries) => {
-  const { location, distance, age } = q;
-  let response;
-  try {
-    response = await client.animal.search({
-      type: 'Dog',
-      age,
-      location,
-      distance,
-      limit: '100',
-    });
-  } catch {
-    client = new Client({ apiKey, secret });
-  } finally {
-    response = await client.animal.search({
-      type: 'Dog',
+      type: type,
       age,
       location,
       distance,
