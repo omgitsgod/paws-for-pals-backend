@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getDogsWithOptions, getCatsWithOptions } from './PetsController';
+import { getDogs, getCats } from './PetsController';
 
 export default [
   {
@@ -12,26 +12,11 @@ export default [
   {
     path: '/Dog',
     method: 'get',
-    handler: async ({ query }: Request, res: Response) => {
-      let result;
-      const location = query.location?.toString();
-      const distance = query.distance?.toString();
-      const age = query.age?.toString();
-      result = await getDogsWithOptions(location, distance, age);
-      res.status(200).send(result);
-    },
+    handler: getDogs
   },
   {
     path: '/Cat',
     method: 'get',
-    handler: async ({ query }: Request, res: Response) => {
-      let result;
-      const location = query.location?.toString();
-      const distance = query.distance?.toString();
-      const age = query.age?.toString();
-      const options = { location, distance };
-      result = await getCatsWithOptions(location, distance, age);
-      res.status(200).send(result);
-    },
+    handler: getCats
   },
 ];
