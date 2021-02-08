@@ -1,16 +1,18 @@
-import { getDogs, getCats } from './providers/PetFinderDataProvider';
+import { Request, Response } from 'express';
+import { getPets } from './providers/PetFinderDataProvider';
 
-export const getDogsWithOptions = async (
-  location: string | undefined,
-  distance: string | undefined,
-  age: string | undefined
-) => {
-  return getDogs({ location, distance, age });
+export const getDogs = async ({ query }: Request, res: Response) => {
+  const location = query.location?.toString();
+  const distance = query.distance?.toString();
+  const age = query.age?.toString();
+  const result = await getPets('Dog', { location, distance, age })
+  res.status(200).send(result);
 };
-export const getCatsWithOptions = async (
-  location: string | undefined,
-  distance: string | undefined,
-  age: string | undefined
-) => {
-  return getCats({ location, distance, age });
+
+export const getCats = async ({ query }: Request, res: Response) => {
+  const location = query.location?.toString();
+  const distance = query.distance?.toString();
+  const age = query.age?.toString();
+  const result = await getPets('Cat', { location, distance, age });
+  res.status(200).send(result);
 };
