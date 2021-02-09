@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getDogs, getCats } from './PetsController';
+import { getDogs, getCats } from "./petsController";
 
 export default [
   {
