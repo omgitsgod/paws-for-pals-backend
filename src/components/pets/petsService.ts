@@ -1,19 +1,9 @@
 import { Client } from '@petfinder/petfinder-js';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const apiKey: string = process.env.PETFINDER_KEY!;
-const secret: string = process.env.PETFINDER_SECRET!;
+import { apiKey, secret} from '../../config';
 
 let client = new Client({ apiKey, secret });
-type qeuries = {
-  location: string | undefined;
-  distance: string | undefined;
-  age: string | undefined;
-};
 
-export const getPets = async (type: string, q: qeuries) => {
+export const getPets = async (type: string, q: petQeury) => {
   const { location, distance, age } = q;
   let response;
   try {
