@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getPets } from './providers/PetFinderDataProvider';
+import { getPets } from './petsService';
 
 export const getDogs = async ({ query }: Request, res: Response) => {
   const location = query.location?.toString();
