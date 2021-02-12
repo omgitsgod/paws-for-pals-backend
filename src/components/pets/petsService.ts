@@ -3,6 +3,12 @@ import { apiKey, secret} from '../../config';
 
 let client = new Client({ apiKey, secret });
 
+type petQeury = {
+  location: string | undefined;
+  distance: string | undefined;
+  age: string | undefined;
+};
+
 export const getPets = async (type: string, q: petQeury) => {
   const { location, distance, age } = q;
   let response;
