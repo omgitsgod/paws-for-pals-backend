@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
-import { getAuthGoogle, getAuthGoogleCallback } from './usersController';
+import { getAuthGoogle, getAuthGoogleCallback, getIndex, getUser, handleLogout } from './usersController';
 
 export default [
   {
-    path: '/user',
+    path: '/',
     method: 'get',
-    handler: async (req: Request, res: Response) => {
-      res.send('User!');
-    },
+    handler: getIndex,
   },
   {
     path: '/auth/google',
@@ -19,4 +17,14 @@ export default [
     method: 'get',
     handler: getAuthGoogleCallback,
   },
+  {
+    path: '/getUser',
+    method: 'get',
+    handler: getUser,
+  },
+  {
+    path: '/logout',
+    method: 'get',
+    handler: handleLogout,
+  }
 ];
