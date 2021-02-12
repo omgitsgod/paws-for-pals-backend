@@ -3,13 +3,6 @@ import { getDogs, getCats } from "./petsController";
 
 export default [
   {
-    path: '/',
-    method: 'get',
-    handler: async (req: Request, res: Response) => {
-      res.send('Pets!');
-    },
-  },
-  {
     path: '/Dog',
     method: 'get',
     handler: getDogs
