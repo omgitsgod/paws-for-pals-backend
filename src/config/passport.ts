@@ -24,8 +24,8 @@ passport.deserializeUser((id: any, done: any) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID,
-      clientSecret,
+      clientID: clientID,
+      clientSecret: clientSecret,
       callbackURL: `${host}/auth/google/callback`,
     },
     (
