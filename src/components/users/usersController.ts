@@ -9,6 +9,7 @@ export const getIndex = (req: Request, res: Response) => {
     res.redirect('/getUser');
   } else {
     req.session.destroy((err) => err ? console.log(err): null);
+    res.end();
   }
 };
 
