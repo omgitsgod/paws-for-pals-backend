@@ -25,7 +25,8 @@ export const getAuthGoogleCallback = (req: Request, res: Response) => {
   addToUsers(user);
   isOnline(user) ? null : addOnline(user);
   console.log('Getting User:', user.name);
-  res.redirect(client)
+  console.log('client', client);
+  res.redirect(client);
 };
 
 export const getUser = (req: Request, res: Response) => {
