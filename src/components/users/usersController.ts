@@ -26,7 +26,7 @@ export const getAuthGoogleCallback = (req: Request, res: Response) => {
   isOnline(user) ? null : addOnline(user);
   console.log('Getting User:', user.name);
   console.log('client', process.env.CLIENT);
-  res.redirect(client);
+  res.redirect(client || 'https://paws.netlify.app');
 };
 
 export const getUser = (req: Request, res: Response) => {
