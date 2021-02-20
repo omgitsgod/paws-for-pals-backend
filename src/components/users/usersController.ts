@@ -5,6 +5,7 @@ import { isOnline, addOnline, checkToken, onlineList, removeByToken, addToUsers 
 import User from './userModel';
 
 export const getIndex = (req: Request, res: Response) => {
+  console.log('req.session: ', req.session)
   if (req.session.passport) {
     res.redirect('/getUser');
   } else {
