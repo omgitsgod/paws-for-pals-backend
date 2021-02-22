@@ -51,7 +51,7 @@ export const handleSession = (router: Router) => {
       name: 'PawsForPals',
       resave: false,
       saveUninitialized: true,
-      cookie: { secure: false, maxAge: 600000 },
+      cookie: { secure: false, maxAge: 600000, sameSite: 'none' },
       store: new redisStore({
         url: process.env.REDIS_URL,
         client: redisClient,
