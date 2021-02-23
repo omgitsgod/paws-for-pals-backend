@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import passport from 'passport';
-import { client } from '../../config';
+import { clientLink } from '../../config';
 import { isOnline, addOnline, checkToken, onlineList, removeByToken, addToUsers } from '../../config/logger';
 import User from './userModel';
 
@@ -30,8 +30,8 @@ export const getAuthGoogleCallback = (req: Request, res: Response) => {
   isOnline(user) ? null : addOnline(user);
   console.log('Getting User:', user.name);
   console.log('env', process.env)
-  console.log('client', process.env.CLIENT);
-  res.redirect(client || 'https://paws.netlify.app');
+  console.log('client', process.env.CLIENTLINK);
+  res.redirect(clientLink);
 };
 
 export const getUser = (req: Request, res: Response) => {

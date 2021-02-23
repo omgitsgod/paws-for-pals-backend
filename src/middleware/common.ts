@@ -8,7 +8,7 @@ import session from 'express-session';
 import url from 'url';
 import redis from 'redis';
 import connectRedis from 'connect-redis';
-import { client, secret, redisUrl } from '../config';
+import { clientLink, secret, redisUrl } from '../config';
 import { connectDb } from '../models/index';
 import ('../config/passport');
 
@@ -22,7 +22,7 @@ const redisClient = redis.createClient(
 );
 
 export const handleCors = (router: Router) => {
-  router.use(cors({ origin: client, credentials: true }));
+  router.use(cors({ credentials: true, origin: clientLink}));
 };
 
 export const handleBodyRequestParsing = (router: Router) => {
@@ -51,7 +51,7 @@ export const handleSession = (router: Router) => {
       name: 'PawsForPals',
       resave: false,
       saveUninitialized: true,
-      cookie: { secure: false, maxAge: 600000, sameSite: 'none' },
+      cookie: { secure: false, maxAge: 600000 },
       store: new redisStore({
         url: process.env.REDIS_URL,
         client: redisClient,
@@ -66,7 +66,7 @@ export const handlePassport = (router: Router) => {
 export const handleAuth = (router: Router) => {
   router.use(
     '/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: client, session: true })
+    passport.authenticate('google', { failureRedirect: clientLink, session: true })
   );
 };
 export const handleDB = (router: Router) => {
