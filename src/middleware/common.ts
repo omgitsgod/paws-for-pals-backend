@@ -22,7 +22,7 @@ const redisClient = redis.createClient(
 );
 
 export const handleCors = (router: Router) => {
-  router.use(cors({ credentials: true, origin: true }));
+  router.use(cors({ origin: client, credentials: true }));
 };
 
 export const handleBodyRequestParsing = (router: Router) => {
