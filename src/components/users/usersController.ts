@@ -9,6 +9,7 @@ export const getIndex = (req: Request, res: Response) => {
   if (req.session.passport) {
     res.redirect('/getUser');
   } else {
+    console.log('No passport found, destroying session')
     req.session.destroy((err) => err ? console.log(err): null);
     res.end();
   }
