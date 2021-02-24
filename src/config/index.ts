@@ -11,3 +11,4 @@ export const host: string = process.env.HOST!;
 export const clientLink: string = process.env.CLIENTLINK!;
 export const redisUrl: any = process.env.REDIS_URL!;
 export const mongoDB: string = process.env.MONGODB_URI || 'mongodb://localhost/pawsforpals';
+export const production: boolean = Boolean(process.env.PRODUCTION!);
