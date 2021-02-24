@@ -15,7 +15,7 @@ process.on("unhandledRejection", e => {
 });
 
 const server = express();
-server.set('trust proxy', true);
+server.set('trust proxy', 1);
 
 applyMiddleware(middleware, server);
 applyRoutes(routes, server);
