@@ -35,7 +35,7 @@ export const handleCompression = (router: Router) => {
 export const handleFavicon = (router: Router) => {
   router.use(favicon(path.join(process.cwd(), '/public', 'favicon.ico')));
 };
-export const handleRedis = (router: Router) => {
+export const handleSessionPassport = (router: Router) => {
   redisClient.auth(redisAuth[1], () => console.log('Redis Authorized'));
   redisClient.on('error', (err) => {
     console.log('Redis error: ', err);
@@ -43,8 +43,6 @@ export const handleRedis = (router: Router) => {
   redisClient.on('connect', () => {
     console.log('Connected to Redis');
   });
-};
-export const handleSession = (router: Router) => {
   router.use(
     session({
       secret,
@@ -58,8 +56,6 @@ export const handleSession = (router: Router) => {
       }),
     })
   );
-};
-export const handlePassport = (router: Router) => {
   router.use(passport.initialize());
   router.use(passport.session());
 };
