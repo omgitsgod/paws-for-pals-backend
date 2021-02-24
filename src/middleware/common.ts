@@ -8,7 +8,7 @@ import session from 'express-session';
 import url from 'url';
 import redis from 'redis';
 import connectRedis from 'connect-redis';
-import { clientLink, secret, redisUrl } from '../config';
+import { clientLink, secret, redisUrl, production } from '../config';
 import { connectDb } from '../models/index';
 import ('../config/passport');
 
@@ -49,7 +49,7 @@ export const handleSessionPassport = (router: Router) => {
       name: 'PawsForPals',
       resave: false,
       saveUninitialized: true,
-      cookie: { secure: false, maxAge: 600000 },
+      cookie: { secure: production, maxAge: 600000 },
       store: new redisStore({
         url: process.env.REDIS_URL,
         client: redisClient,
