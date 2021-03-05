@@ -1,6 +1,6 @@
 import express from "express";
 import { applyMiddleware, applyRoutes } from "./utils";
-import { port } from "./config";
+import { port, production } from "./config";
 import routes from "./routes";
 import middleware from "./middleware";
 import errorHandlers from "./middleware/errorHandlers";
@@ -15,7 +15,7 @@ process.on("unhandledRejection", e => {
 });
 
 const server = express();
-server.set('trust proxy', 1);
+if (production) server.set('trust proxy', 1);
 
 applyMiddleware(middleware, server);
 applyRoutes(routes, server);
