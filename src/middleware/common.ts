@@ -49,7 +49,7 @@ export const handleSessionPassport = (router: Router) => {
       name: 'PawsForPals',
       resave: false,
       saveUninitialized: true,
-      cookie: { secure: false, maxAge: 600000, sameSite: 'lax' },
+      cookie: { secure: production, maxAge: 600000, sameSite: production ? 'none' : 'strict' },
       store: new redisStore({
         url: process.env.REDIS_URL,
         client: redisClient,
