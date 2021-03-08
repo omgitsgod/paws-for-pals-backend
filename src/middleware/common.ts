@@ -48,6 +48,7 @@ export const handleSessionPassport = (router: Router) => {
       secret: sessionSecret,
       name: 'PawsForPals',
       resave: false,
+      proxy: true,
       saveUninitialized: true,
       cookie: { secure: production, maxAge: 600000, sameSite: production ? 'none' : 'strict' },
       store: new redisStore({
