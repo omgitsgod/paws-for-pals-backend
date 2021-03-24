@@ -23,14 +23,17 @@ export const getAuthGoogleCallback = (req: Request, res: Response) => {
   const { user }: any = req;
   const { token } = user;
   req.session.user = req.user;
-  req.session.save();
-  console.log('id: ', req.session.id);
-  console.log('session: ', req.session);
-  addToUsers(user);
-  isOnline(user) ? null : addOnline(user);
-  console.log('Getting User:', user.name);
-  console.log('client', clientLink);
-  res.redirect(clientLink);
+  req.session.save(err => {
+    if (err) {
+      console.log(err);
+    }
+    console.log('id: ', req.session.id);
+    console.log('session: ', req.session);
+    addToUsers(user);
+    isOnline(user) ? null : addOnline(user);
+    console.log('Getting User:', user.name);
+    res.redirect(clientLink);
+  });
 };
 
 export const getUser = (req: Request, res: Response) => {
