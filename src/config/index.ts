@@ -12,4 +12,4 @@ export const sessionSecret: string = process.env.SESSIONSECRET!;
 export const clientLink: string = process.env.CLIENTLINK!;
 export const redisUrl: any = process.env.REDIS_URL!;
 export const mongoDB: string = process.env.MONGODB_URI || 'mongodb://localhost/pawsforpals';
-export const production: boolean = process.env.production === 'true' ? true : false;
+export const production: boolean = process.env.PRODUCTION === 'true' ? true : false;
