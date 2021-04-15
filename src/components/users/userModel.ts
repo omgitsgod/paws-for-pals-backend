@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
   token: String,
   oauthID: Number,
   created: Date,
+  favorites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Favorite'
+  }],
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);
