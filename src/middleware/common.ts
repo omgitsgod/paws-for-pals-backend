@@ -26,7 +26,7 @@ export const handleCors = (router: Router) => {
 };
 
 export const handleBodyRequestParsing = (router: Router) => {
-  router.use(urlencoded({ extended: true }));
+  router.use(urlencoded());
   router.use(json());
 };
 export const handleCompression = (router: Router) => {
@@ -50,7 +50,7 @@ export const handleSessionPassport = (router: Router) => {
       resave: false,
       proxy: production,
       saveUninitialized: true,
-      cookie: { secure: production, maxAge: 600000, sameSite: production ? 'none' : 'strict' },
+      cookie: { secure: production, maxAge: 600000, httpOnly: production, sameSite: production ? 'none' : 'strict' },
       store: new redisStore({
         url: process.env.REDIS_URL,
         client: redisClient,
