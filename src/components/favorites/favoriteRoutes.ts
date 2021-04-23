@@ -1,4 +1,4 @@
-import { saveFavorite, getFavorites } from './favoritesController';
+import { saveFavorite, getFavorites, deleteFavorite } from './favoritesController';
 
 export default [
   {
@@ -10,5 +10,10 @@ export default [
     path: '/get_favorites',
     method: 'get',
     handler: getFavorites,
+  },
+  {
+    path: '/delete_favorite',
+    method: 'post',
+    handler: deleteFavorite,
   },
 ];
