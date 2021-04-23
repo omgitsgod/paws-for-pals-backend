@@ -15,11 +15,25 @@ export const saveFavorite = async (req: Request, res: Response) => {
   }
 };
 
-export const getFavorites = async(req: Request, res: Response) => {
+export const getFavorites = async (req: Request, res: Response) => {
   if (req.session.passport) {
     const favorites = await Favorite.find({user: req.session.passport.user});
     res.json(favorites);
   } else {
   res.json([]);
   }
-}
+};
+
+export const deleteFavorite = async (req: Request, res: Response) => {
+  const { query } = req;
+  const { id } = query;
+  if (req.session.passport) {
+    console.log(id)
+    const favorite = await Favorite.findOne({ id });
+    console.log(favorite)
+    if (favorite) {
+      favorite!.remove();
+      res.json('destroyed')
+    }
+  }
+};
