@@ -1,35 +1,53 @@
 import { Client } from '@petfinder/petfinder-js';
+import fetch from 'node-fetch';
 import { apiKey, secret} from '../../config';
 
-let client = new Client({ apiKey, secret });
+let client = new Client({ apiKey, secret: secret });
+let token: string
+let expires = new Date().getTime() + 3600 * 1000
 
 type petQeury = {
   location: string | undefined;
   distance: string | undefined;
   age: string | undefined;
 };
+const checkExpiration = () => {
+  let now = new Date().getTime();
+  
+  return expires - now < 1
+}
+
+const getOAuth = async () => {
+  const result = await fetch('https://api.petfinder.com/v2/oauth2/token', {
+    method: 'POST',
+    body:
+      'grant_type=client_credentials&client_id=' +
+      apiKey +
+      '&client_secret=' +
+      secret,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  }).then((r) => r.json());
+
+  if (result.access_token) {
+    token = result.access_token;
+    expires = new Date().getTime() + result.expires_in * 1000;
+    console.log('new token is: ', token);
+  }
+};
 
 export const getPets = async (type: string, q: petQeury) => {
   const { location, distance, age } = q;
-  let response;
-  try {
-    response = await client.animal.search({
-      type: type,
-      age,
-      location,
-      distance,
-      limit: '100',
-    });
-  } catch {
-    client = new Client({ apiKey, secret });
-  } finally {
-    response = await client.animal.search({
-      type: type,
-      age,
-      location,
-      distance,
-      limit: '100',
-    });
-  }
-  return response.data;
+  const url = 'https://api.petfinder.com/v2/animals';
+  let queryUrl = `${url}?type=${type}${age ? `&age=${age}` : null}${location ? `&location=${location}` : null}${distance ? `&distance=${distance}` : null}`;
+  await getOAuth();
+  const pets = await fetch(queryUrl, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then(r => r.json());
+  
+  return pets;
 };
