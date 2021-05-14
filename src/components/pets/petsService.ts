@@ -2,7 +2,7 @@ import { Client } from '@petfinder/petfinder-js';
 import fetch from 'node-fetch';
 import { apiKey, secret} from '../../config';
 
-let client = new Client({ apiKey, secret: secret });
+//let client = new Client({ apiKey, secret: secret });
 let token: string
 let expires = new Date().getTime() + 3600 * 1000
 
@@ -48,6 +48,6 @@ export const getPets = async (type: string, q: petQeury) => {
       Authorization: `Bearer ${token}`
     }
   }).then(r => r.json());
-  
+
   return pets;
 };
