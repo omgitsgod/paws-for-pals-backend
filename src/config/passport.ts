@@ -7,16 +7,16 @@ const GoogleStrategy = passportGoogleOauth.OAuth2Strategy;
 
 passport.serializeUser((user: any, done: any) => {
   console.log('Serializer : ', user._id);
-  done(null, user._id);
+  return done(null, user._id);
 });
 
 passport.deserializeUser((id: any, done: any) => {
   User.findById(id, (err: Error, user: any) => {
     console.log('Deserialized user: ', user);
     if (!err) {
-      done(null, user);
+      return done(null, user);
     } else {
-      done(err, null);
+      return done(err, null);
     }
   });
 });
@@ -39,7 +39,7 @@ passport.use(
           console.log(err);
         }
         if (!err && user !== null) {
-          done(null, user);
+          return done(null, user);
         } else {
           user = new User({
             oauthID: profile.id,
@@ -54,7 +54,7 @@ passport.use(
               console.log(err);
             } else {
               console.log('saving user...');
-              done(null, user);
+              return done(null, user);
             }
           });
         }
