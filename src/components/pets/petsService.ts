@@ -40,7 +40,7 @@ const getOAuth = async () => {
 export const getPets = async (type: string, q: petQeury) => {
   const { location, distance, age } = q;
   const url = 'https://api.petfinder.com/v2/animals';
-  let queryUrl = `${url}?type=${type}${age ? `&age=${age}` : null}${location ? `&location=${location}` : null}${distance ? `&distance=${distance}` : null}`;
+  let queryUrl = `${url}?type=${type}${age ? `&age=${age}` : ''}${location && distance ? `&location=${location}&distance=${distance}` : ''}`;
   await getOAuth();
   const pets = await fetch(queryUrl, {
     method: 'GET',
