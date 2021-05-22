@@ -12,7 +12,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@petfinder/petfinder-js": "^1.0.6",
     "@types/compression": "^1.7.0",
     "@types/connect-redis": "^0.0.16",
     "@types/cors": "^2.8.6",

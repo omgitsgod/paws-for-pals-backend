@@ -1,8 +1,6 @@
-import { Client } from '@petfinder/petfinder-js';
 import fetch from 'node-fetch';
 import { apiKey, secret } from '../../config';
 
-//let client = new Client({ apiKey, secret: secret });
 let token: string
 let expires = new Date().getTime() + 3600 * 1000
 
@@ -15,7 +13,7 @@ type petQeury = {
 const checkExpiration = () => {
   let now = new Date().getTime();
   
-  return expires - now < 1
+  return expires - now < 1;
 }
 
 const getOAuth = async () => {
