@@ -1,6 +1,7 @@
 import { Client } from '@petfinder/petfinder-js';
 import fetch from 'node-fetch';
-import { apiKey, secret} from '../../config';
+import Shelter from './shelterModel';
+import { apiKey, secret } from '../../config';
 
 //let client = new Client({ apiKey, secret: secret });
 let token: string;
@@ -9,11 +10,14 @@ let expires = new Date().getTime() + 3600 * 1000;
 type shelterQeury = {
   id: string | undefined;
 };
+type sheltersQeury = {
+  ids: [];
+};
 const checkExpiration = () => {
   let now = new Date().getTime();
   
   return expires - now < 1;
-}
+};
 
 const getOAuth = async () => {
   const result = await fetch('https://api.petfinder.com/v2/oauth2/token', {
@@ -32,6 +36,7 @@ const getOAuth = async () => {
     token = result.access_token;
     expires = new Date().getTime() + result.expires_in * 1000;
     console.log('new token is: ', token);
+    return token;
   }
 };
 
@@ -47,5 +52,36 @@ export const getShelterById = async (q: shelterQeury) => {
     }
   }).then(r => r.json());
   
-  return shelter;
+  return shelter.organization;
+};
+
+export const getSheltersById = async (q: sheltersQeury) => {
+  const { ids } = q;
+  let shelters = [];
+  await getOAuth();
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[i];
+    const dbQuery = await Shelter.findOne({ id });
+    if (!dbQuery) {
+      const url = `https://api.petfinder.com/v2/organizations/${id}`;
+      const shelter = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((r) => r.json());
+      const savedShelter = new Shelter(shelter.organization);
+      savedShelter.save((err) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(`${shelter.organization.id} saved to db`);
+      });
+      shelters.push(shelter.organization);
+    } else {
+      console.log(`Retrieve ${dbQuery.id} from db`);
+      shelters.push(dbQuery);
+    }
+  }
+  return shelters;
 };
