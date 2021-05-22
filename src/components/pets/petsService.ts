@@ -1,6 +1,6 @@
 import { Client } from '@petfinder/petfinder-js';
 import fetch from 'node-fetch';
-import { apiKey, secret} from '../../config';
+import { apiKey, secret } from '../../config';
 
 //let client = new Client({ apiKey, secret: secret });
 let token: string
@@ -10,6 +10,7 @@ type petQeury = {
   location: string | undefined;
   distance: string | undefined;
   age: string | undefined;
+  breed: string | undefined;
 };
 const checkExpiration = () => {
   let now = new Date().getTime();
@@ -34,13 +35,14 @@ const getOAuth = async () => {
     token = result.access_token;
     expires = new Date().getTime() + result.expires_in * 1000;
     console.log('new token is: ', token);
+    return token;
   }
 };
 
 export const getPets = async (type: string, q: petQeury) => {
-  const { location, distance, age } = q;
+  const { location, distance, age, breed } = q;
   const url = 'https://api.petfinder.com/v2/animals';
-  let queryUrl = `${url}?type=${type}${age ? `&age=${age}` : ''}${location && distance ? `&location=${location}&distance=${distance}` : ''}`;
+  let queryUrl = `${url}?type=${type}${age ? `&age=${age}` : ''}${location && distance ? `&location=${location}&distance=${distance}` : ''}${breed ? `&breed=${breed}` : ''}`;
   await getOAuth();
   const pets = await fetch(queryUrl, {
     method: 'GET',
