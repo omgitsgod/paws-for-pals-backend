@@ -35,7 +35,7 @@
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "serve-favicon": "^2.5.0",
     "tsc-watch": "^4.2.8",
     "typescript": "^3.9.5"
