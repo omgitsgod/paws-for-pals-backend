@@ -11,7 +11,8 @@ export const getIndex = (req: Request, res: Response) => {
   } else {
     console.log('No passport found, destroying session')
     req.session.destroy((err) => err ? console.log(err): null);
-    res.end();
+    const message = JSON.stringify('')
+    res.status(200).send(message);
   }
 };
 
